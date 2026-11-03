@@ -7,10 +7,42 @@
 [![Cloud Run](https://img.shields.io/badge/Cloud%20Run-deployed-4285F4)](https://cloud.google.com/run)
 [![Firestore](https://img.shields.io/badge/Firestore-native-FBBC04)](https://cloud.google.com/firestore)
 [![Tests](https://img.shields.io/badge/tests-203%20passing-34A853)](#a--zero-credentials-90-seconds)
-[![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+[![License](https://img.shields.io/badge/License-All%20rights%20reserved-red)](LICENSE)
 
 > **Live service:** https://invoice-sentinel-474711060457.us-central1.run.app
 > **Built for:** [All Things Agentic Hackathon](https://allthingsagentichackathon.devpost.com/) — track *The Taskmaster*
+
+---
+
+## Comprovação de experiência (pt-BR)
+
+| | |
+|---|---|
+| **Autor** | Breno Luiz Silva do Carmo — único autor dos 40 commits deste repositório |
+| **Tipo** | Item de portfólio de autoria própria — agente de IA em produção no Google Cloud Run |
+| **Período de desenvolvimento** | 25/08/2026 a 30/08/2026 |
+| **Contexto** | Submissão ao [All Things Agentic Hackathon](https://allthingsagentichackathon.devpost.com/) (Devpost) |
+| **Verificação** | `pip install -r requirements-dev.txt && pytest` → **203 testes passando**, offline, sem credenciais |
+
+### Competências técnicas evidenciadas
+
+| Competência | Onde verificar neste repositório |
+|---|---|
+| **Testes automatizados** | [`tests/`](tests/) — 203 testes `pytest` (regras, extração, ferramentas do agente, casos adversariais, fluxo de upload) e avaliações reproduzíveis em [`scripts/eval_extraction.py`](scripts/eval_extraction.py) e [`scripts/eval_audit.py`](scripts/eval_audit.py) |
+| **Banco de dados** | [`invoice_sentinel/store.py`](invoice_sentinel/store.py) — Firestore com chaves idempotentes por SHA-256; índices compostos versionados em [`firestore.indexes.json`](firestore.indexes.json) |
+| **Backend e arquitetura de software** | Python 3.12, Pydantic, aritmética `Decimal`; grafo de agentes (Google ADK) com `SequentialAgent`/`ParallelAgent` em [`invoice_sentinel/agent.py`](invoice_sentinel/agent.py) |
+| **Inteligência artificial aplicada** | Gemini 3.5 Flash multimodal para extração de PDF ([`extractor.py`](invoice_sentinel/extractor.py)) com laço de reparo; guarda que impede o LLM de inventar valores ([`amount_guard.py`](invoice_sentinel/amount_guard.py)) |
+| **Nuvem e DevOps** | [`deploy.ps1`](deploy.ps1) — deploy no Cloud Run, buckets do Cloud Storage, IAM dedicado, Cloud Trace e verificação da revisão publicada |
+| **Segurança e privacidade** | Seção *Security and privacy* abaixo: PDF nunca armazenado, sem logs de conteúdo, conta de serviço com escopo mínimo, expiração de artefatos em [`artifact-lifecycle.json`](artifact-lifecycle.json) |
+| **Design e prototipagem** | Diagrama de arquitetura em [`assets/architecture.pt-BR.svg`](assets/architecture.pt-BR.svg) / [`assets/architecture.svg`](assets/architecture.svg) |
+| **GitHub / versionamento** | 40 commits com mensagens que registram cada decisão e cada defeito corrigido |
+
+### Resultados medidos
+
+Extração: **99,55 %** de acurácia por campo (1781/1789) em 15 faturas. Auditoria: **5/5**
+anomalias encontradas, **0** falsos positivos, valor recuperado exato ao centavo (1 036,10).
+
+> The full technical write-up below is in English, as submitted to the hackathon.
 
 ---
 
@@ -620,6 +652,15 @@ Honest scope, so nothing here is oversold:
 
 ## License
 
-[MIT](LICENSE). Built for the
-[All Things Agentic Hackathon](https://allthingsagentichackathon.devpost.com/) — track *The
-Taskmaster*.
+Copyright (c) 2026 Breno Luiz Silva do Carmo. Todos os direitos reservados.
+Nenhuma parte deste código pode ser utilizada, reproduzida, distribuída ou modificada sem
+autorização prévia por escrito do autor. See [LICENSE](LICENSE).
+
+Built for the [All Things Agentic Hackathon](https://allthingsagentichackathon.devpost.com/) —
+track *The Taskmaster*.
+
+## Author
+
+**Breno Luiz Silva do Carmo** ·
+[LinkedIn](https://www.linkedin.com/in/breno-luiz-silva-do-carmo-19451a243/) ·
+[GitHub](https://github.com/Bren0-lz)
